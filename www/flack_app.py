@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return '<h1>Home</h1>'
+  #  return '<h1>Home</h1>'
+    return 'hello world'
 
 @app.route('/signin', methods=['GET'])
 def signin_form():
@@ -25,4 +26,4 @@ def signin():
     return '<h3>Bad username or password.</h3>'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')

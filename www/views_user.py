@@ -1,12 +1,19 @@
+# -*- coding:utf-8 -*-
+"""用户视图层
+
+处理来自用户的URL，提供视图
+"""
+__author__ = 'zzy'
+
 from flask import Blueprint, render_template, redirect,request
 from www.models import User
 from www import db
 
 user = Blueprint('user',__name__)
 
-@user.route('/index')
+@user.route('/')
 def index():
-    return render_template('user/index.html')
+    return 'user_index.html'
 
 @user.route('/add/',methods=['GET','POST'])
 def add():
@@ -21,8 +28,6 @@ def add():
         newobj = User(username=p_user, email=p_email, password=p_password)
         db.session.add(newobj)
         db.session.commit()
-        users = User.query.all()
-        return render_template('user_add.html',users=users)
     users = User.query.all()
     return render_template('user_add.html',users=users)
 

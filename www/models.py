@@ -1,7 +1,24 @@
+# -*- coding:utf-8 -*-
+"""模型层
+
+固化数据，为数据库的创建和操作提供模板
+"""
+__author__ = 'zzy'
+
 from www import db
-#创建模型对象
+
 
 class User(db.Model):
+    """用户表
+
+    映射数据库中的user表
+
+    Attributes:
+        __tablename__：数据库中的表名
+        id：
+        email：
+        password：
+    """
     __tablename__ = 'users' #数据库中的表名
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)

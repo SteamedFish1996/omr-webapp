@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AdminsAdd</title>
+</head>
+<body>
+<form action="/admin/add/" method="POST">
+    user:<input type="text" name="username" />
+    email:<input type="text" name="email" />
+    pwd:<input type="password" name="password" />
+    <input type="submit" value="add" />
+</form>
+{% if admins %}
+<table border="1px">
+    <tr>
+        <th>UserName</th>
+        <th>Email</th>
+    </tr>
+    {% for u in admins %}
+        <tr>
+            <td>{{u.username}}</td>
+            <td>{{u.email}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+</body>
+</html>

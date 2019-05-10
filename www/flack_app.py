@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+"""
 from flask import Flask,request,abort, redirect, url_for
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -53,3 +53,5 @@ def signin():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0') #让操作系统监听所有公网 IP
+
+"""

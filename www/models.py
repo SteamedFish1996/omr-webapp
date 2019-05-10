@@ -1,4 +1,4 @@
-from flack_app import db
+from www import db
 #创建模型对象
 
 class User(db.Model):

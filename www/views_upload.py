@@ -7,6 +7,7 @@ __author__ = 'zzy'
 
 from flask import Blueprint, render_template, redirect, request, url_for
 from www import app
+
 import os
 from werkzeug.utils import secure_filename
 
@@ -23,7 +24,21 @@ def upload_file():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         upload_path = os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename))  #注意：没有的文件夹一定要先创建，不然会提示没有该路径
         f.save(upload_path)
-        return redirect(url_for('upload.upload_file'))
+        return redirect(url_for('upload.results'))
+    return render_template('upload.html')
+
+@upload.route('/results', methods=['POST', 'GET'])
+def results():
+    from omr.shell import Shell
+    python27_dir = 'C:/Users/92538/Anaconda3/envs/moonlight/python.exe'
+    testfile_dir = 'F:/omr-webapp/backup/test.py'
+    cmd = python27_dir + ' ' + testfile_dir
+    print(cmd)
+    shell = Shell()
+    returncode, sout, serr, pid = shell.run_cmd(cmd)
+    results = shell.cmd_result_list(sout)
+    for l in results:
+        print(l)
     return render_template('upload.html')
 
 if __name__ == '__main__':

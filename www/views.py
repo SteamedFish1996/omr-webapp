@@ -15,7 +15,7 @@ from www.views_admin import admin
 from www.views_user import user
 from www.views_upload import upload
 
-from flask import redirect, url_for
+from flask import redirect, url_for, render_template ,request
 
 #app注册蓝图
 app.register_blueprint(admin, url_prefix='/admin')
@@ -31,13 +31,14 @@ def login():
     abort(401)
     #this_is_never_executed()
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('page_not_found.html'), 404
-
 @app.route('/hello')
 def hello():
     return 'Hello World'
+
+@app.route('/omr')
+def omr():
+    return "omr"
+
 
 @app.route('/signin', methods=['GET'])
 def signin_form():

@@ -21,7 +21,7 @@ def upload_file():
     if request.method == 'POST':
         f = request.files['file']
         if not (f and allowed_file(f.filename)):
-            return jsonify({"error": 1001, "msg": "请检查上传的图片类型，仅限于png、pdf"})
+            return jsonify({"error": 1001, "msg": "Please check the type of uploaded image, only pdf and png are allowed"})
         upload_path = os.path.join(app.config['UPLOAD_FOLDER'],secure_filename(f.filename))  #注意：没有的文件夹一定要先创建，不然会提示没有该路径
         f.save(upload_path)
 

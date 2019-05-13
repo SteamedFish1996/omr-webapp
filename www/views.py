@@ -24,12 +24,7 @@ app.register_blueprint(upload, url_prefix='/upload')
 
 @app.route('/')
 def index():
-    return redirect(url_for('hello'))
-
-@app.route('/login')
-def login():
-    abort(401)
-    #this_is_never_executed()
+    return redirect(url_for('upload.upload_file'))
 
 @app.route('/hello')
 def hello():

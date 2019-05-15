@@ -16,9 +16,13 @@ class Shell(object):
 
 
 if __name__ == '__main__':
-    python27_dir = 'C:/Users/92538/Anaconda3/envs/moonlight/python.exe'
-    testfile_dir = 'F:/omr-webapp/backup/test.py'
-    cmd = python27_dir + ' ' + testfile_dir
+    import os
+    basepath = os.path.dirname(__file__)  # 当前文件所在路径
+    #python27_dir = 'C:/Users/92538/Anaconda3/envs/moonlight/python.exe'
+    testfile_dir = basepath+'/../backup/test.py'
+    cmd1 = "activate py27"
+    cmd2 = 'python' + ' ' +  testfile_dir
+    cmd = cmd1 + '&&' + cmd2
     print(cmd)
     shell = Shell()
     returncode, sout, serr, pid = shell.run_cmd(cmd)

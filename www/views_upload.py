@@ -31,7 +31,7 @@ def upload_file():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         img = cv2.imread(upload_path)
         cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
-    return jsonify({"status": 200, "msg": "upload success","newUrl":"https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg"})
+    return jsonify({"status": 200, "msg": "upload success","newUrl":"https://github.com/SteamedFish1996/omr-webapp/blob/master/data/uploads/IMSLP00747.png"})
 
 @upload.route('/results', methods=['POST', 'GET'])
 def results():

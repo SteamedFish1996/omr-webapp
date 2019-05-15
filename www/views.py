@@ -34,7 +34,6 @@ def hello():
 def omr():
     return "omr"
 
-
 @app.route('/signin', methods=['GET'])
 def signin_form():
     return '''<form action="/signin" method="post">

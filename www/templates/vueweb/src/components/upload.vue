@@ -2,7 +2,7 @@
   <el-container>
     <el-header class="header" style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
       <span style="font-family:华文楷体">光学乐谱识别系统</span>
-      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white"@click="loginOutPC()">&nbsp;退出系统</button>
+      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white">&nbsp;退出系统</button>
     </el-header>
     <br>
     <el-main>
@@ -13,11 +13,14 @@
                   class="upload-demo"
                   ref="upload"
                   drag
-                  action="https://jsonplaceholder.typicode.com/posts/"
+                  :action="imgUrl"
+                  :on-success="handleAvatarSuccess"
                   :on-preview="handlePreview"
                   :on-change="handleChange"
                   :on-remove="handleRemove"
                   :file-list="fileList"
+                  :limit="1"
+                  :on-exceed="handleExceed"
                   :auto-upload="false">
             <i class="el-icon-upload"></i>
             <br>
@@ -38,11 +41,15 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
         data() {
             return {
+                imgUrl:"http://127.0.0.1:5000/upload/",
                 fileList: [],
                 file:[],
+                iUrl: '',
+                response:[],
             }
         },
         created(){
@@ -50,41 +57,63 @@
         },
 
         methods: {
+          handleAvatarSuccess(res, file) {
+            this.iUrl = URL.createObjectURL(file.raw);
+            console.log(this.iUrl);
+             },
             handleChange(file){
                 this.file=file;
                 console.log(file);
-            },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-            },
-            submitUpload() {
-                this.$refs.upload.submit();
-                var that=this;
-                console.log(this.file);
-                let formData = new FormData();
-                formData.append("file", this.file);
-                this.$axios.post('/', formData)
-                    .then(function (response) {
-                        alert("上传成功");
+                this.response=file.response;
+                if(this.response){
+                  if(this.response.status=="200"){
+                    alert("上传成功");
                         //that.$router.push('/emptyPage');
                         that.dialogVisible=false;
-                    })
-                    .catch(function (error) {
-                        alert("上传失败，请检查文件格式并重新上传");
-                        console.log(error);
-                        that.dialogVisible=false;
-                    });
+              }else{
+                alert("上传失败，请检查文件格式并重新上传");
+                that.dialogVisible=false;
+              }
+                }
+            },
+            handleRemove(file, fileList) {
+            },
+            handlePreview(file) {
+            },
+            handleExceed(files, fileList) {this.$message.warning(`当前文件列表中已有文件，请重置后再上传`);},
+            submitUpload() {
+              console.log("上传中...");
+              this.$refs.upload.submit();
+              console.log("上传后.");
+              console.log(this.file);
+              var that=this;
+              console.log(this.file);
+              let formData = new FormData();
+              formData.append("file", this.file);
+              
+                //axios.post('http://127.0.0.1:5000/upload/', formData)
+                   // .then(function (response) {
+                    //    alert("上传成功");
+                        //that.$router.push('/emptyPage');
+                      //  that.dialogVisible=false;
+                    //}).
+                    //.catch(function (error) {
+                      //  alert("上传失败，请检查文件格式并重新上传");
+                        //that.dialogVisible=false;
+                    //});
             },
             analysis(){
-
+              this.$router.push({path:'/ana',
+              query:{
+                response:this.response,
+                iUrl:this.iUrl,
+                }
+                })
             },
             refresh() {
                 this.$refs.upload.clearFiles();
             },
-        }
+        },
     }
 </script>
 <style scoped>

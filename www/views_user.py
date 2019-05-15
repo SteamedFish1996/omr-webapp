@@ -13,7 +13,7 @@ user = Blueprint('user',__name__)
 
 @user.route('/')
 def index():
-    return 'user_index.html'
+    return "hello"
 
 @user.route('/add/',methods=['GET','POST'])
 def add():
@@ -26,11 +26,11 @@ def add():
             return 'input error'
 
         newobj = User(username=p_user, email=p_email, password=p_password)
-        db.session.add(newobj)
-        db.session.commit()
+        #db.session.add(newobj)
+        #db.session.commit()
     users = User.query.all()
     return render_template('user_add.html',users=users)
 
 @user.route('/show')
 def show():
-    return 'user_show'
+    return "hello"

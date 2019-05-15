@@ -2,11 +2,13 @@
   <el-container>
     <el-header class="header" style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
       <span style="font-family:华文楷体">光学乐谱识别系统</span>
-      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white">&nbsp;退出系统</button>
+      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white" @click="goback()">&nbsp;退出系统</button>
     </el-header>
     <br>
     <el-main>
-      <el-header class="header" style="font-family:华文楷体;font-size:120%;font-weight:bold;width:100%;background-color:white;border-top:1px solid #dfdfdf;color:#409dfe;">解析文件</el-header>
+      <el-header class="header" style="font-family:华文楷体;font-size:120%;font-weight:bold;width:100%;background-color:white;border-top:1px solid #dfdfdf;color:#409dfe;">解析文件
+        <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white"  @click="go()">&nbsp;<i class="el-icon-back"></i></button>
+      </el-header>
      <div>
       <div class="block" style="width:40%;float:left">
           <span class="demonstration">原文件</span>
@@ -39,7 +41,14 @@
             this.src1=this.$route.query.iUrl;
             console.log(this.file);
         },
-        methods: {}
+        methods: {
+          goback(){
+              this.$router.push({path:'/'})
+          },
+          go(){
+            this.$router.go(-1);
+          }, 
+        }
     }
 </script>
 <style scoped>

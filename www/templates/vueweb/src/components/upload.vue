@@ -2,7 +2,7 @@
   <el-container>
     <el-header class="header" style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
       <span style="font-family:华文楷体">光学乐谱识别系统</span>
-      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white">&nbsp;退出系统</button>
+      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white" @click="goback()">&nbsp;退出系统</button>
     </el-header>
     <br>
     <el-main>
@@ -50,6 +50,7 @@
                 file:[],
                 iUrl: '',
                 response:[],
+                length:0,
             }
         },
         created(){
@@ -57,13 +58,18 @@
         },
 
         methods: {
+          goback(){
+              this.$router.push({path:'/'})
+          },
           handleAvatarSuccess(res, file) {
             this.iUrl = URL.createObjectURL(file.raw);
             console.log(this.iUrl);
              },
-            handleChange(file){
+            handleChange(file,files){
                 this.file=file;
-                console.log(file);
+                this.length=files.length;
+                console.log("tao");
+                console.log(files.length);
                 this.response=file.response;
                 if(this.response){
                   if(this.response.status=="200"){
@@ -77,11 +83,15 @@
                 }
             },
             handleRemove(file, fileList) {
+              this.length=0;
+              this.response=[];
             },
             handlePreview(file) {
             },
             handleExceed(files, fileList) {this.$message.warning(`当前文件列表中已有文件，请重置后再上传`);},
             submitUpload() {
+              console.log(this.length);
+              if(this.length>0){
               console.log("上传中...");
               this.$refs.upload.submit();
               console.log("上传后.");
@@ -90,7 +100,10 @@
               console.log(this.file);
               let formData = new FormData();
               formData.append("file", this.file);
-              
+              }
+              else{
+                alert("您还未选择文件");
+              }
                 //axios.post('http://127.0.0.1:5000/upload/', formData)
                    // .then(function (response) {
                     //    alert("上传成功");
@@ -103,15 +116,26 @@
                     //});
             },
             analysis(){
-              this.$router.push({path:'/ana',
-              query:{
-                response:this.response,
-                iUrl:this.iUrl,
+              if(this.response){
+                  if(this.response.status=="200"){
+                    this.$router.push({path:'/ana',
+                    query:{
+                      response:this.response,
+                      iUrl:this.iUrl,
+                      }
+                      })
+              }else{
+                alert("您还未上传文件");
+                this.$refs.upload.clearFiles();
+                this.response=[];
+                that.dialogVisible=false;
+              }
                 }
-                })
+             
             },
             refresh() {
                 this.$refs.upload.clearFiles();
+                this.response=[];
             },
         },
     }

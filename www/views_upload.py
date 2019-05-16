@@ -31,7 +31,7 @@ def upload_file():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         img = cv2.imread(upload_path)
         cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
-    return jsonify({"status": 200, "msg": "upload success","newUrl":"https://github.com/SteamedFish1996/hello_world/blob/master/IMSLP00747.png"})
+    return jsonify({"status": 200, "msg": "upload success","newUrl":"IMSLP00747.png"})
 
 @upload.route('/results', methods=['POST', 'GET'])
 def results():

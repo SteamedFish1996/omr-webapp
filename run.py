@@ -11,3 +11,4 @@ from www import app
 CORS(app, supports_credentials=True)
 app.debug = True    #交互式调试器 WARNING: Do not use the development server in a production environment.
 app.run(host='0.0.0.0')
+

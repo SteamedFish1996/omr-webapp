@@ -1,26 +1,21 @@
 <template>
   <el-container>
-    <el-header class="header" style="box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)">
-      <span style="font-family:华文楷体">光学乐谱识别系统</span>
-      <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white" @click="goback()">&nbsp;退出系统</button>
+        <el-header id="header">
+      <el-button class="el-icon-back" @click="go()"></el-button>
+      <p>文件解析</p>
     </el-header>
     <br>
-    <el-main>
-      <el-header class="header" style="font-family:华文楷体;font-size:120%;font-weight:bold;width:100%;background-color:white;border-top:1px solid #dfdfdf;color:#409dfe;">解析文件
-        <button class="el-icon-circle-close-outline exitButt" style="font-family:华文楷体;background-color: white"  @click="go()">&nbsp;<i class="el-icon-back"></i></button>
-      </el-header>
+    <el-main>   
      <div>
       <div class="block" style="width:40%;float:left">
           <span class="demonstration">原文件</span>
-          <el-image :src="src1"></el-image>
+        <br>
+        <img :src="src1" style="width: 100%;">
       </div>
       <div class="block" style="width:40%;float:right">
         <span class="demonstration">解析后的文件</span>
-        <el-image :src="src2">
-          <div slot="placeholder" class="image-slot">
-            加载中<span class="dot">...</span>
-          </div>
-        </el-image>
+        <br>  
+      <img :src="src2" style="width: 100%;" >
       </div>
      </div>
     </el-main>
@@ -37,17 +32,15 @@
             }
         },
         created(){
-            this.src2=this.$route.query.response.newUrl;
+            this.src2=require("../../../../static/images/"+this.$route.query.response.newUrl);
             this.src1=this.$route.query.iUrl;
-            console.log(this.file);
+            console.log(this.src1);
+            console.log(this.src2);
         },
         methods: {
-          goback(){
-              this.$router.push({path:'/'})
-          },
           go(){
             this.$router.go(-1);
-          }, 
+          },
         }
     }
 </script>
@@ -80,5 +73,25 @@
     background-color: #D3DCE6;
     color: #333;
   }
-
+    .el-header .el-icon-back{
+    position: absolute;
+    width: 60px;
+    height: 55px;
+    background-color: #409dfe;
+    border-color: #409dfe;
+    color: white;
+    left: 10px;
+    top: 10px;
+  }
+  .el-header .el-icon-back:hover{background-color: #409dfe;border-color: #409dfe;}
+  .el-header .el-icon-back:focus{background-color: #409dfe;border-color: #409dfe;}
+  .el-header{
+    margin: 0px;
+    padding: 0px;
+    background-color: #409dfe;
+    color:white;
+    font-size: 20px;
+    line-height: 22px;
+    text-align: center;
+  }
 </style>

@@ -6,7 +6,8 @@
 
 __author__ = 'zzy'
 
-from flask import Blueprint, render_template, redirect, request, url_for, jsonify
+from flask import Blueprint, render_template, redirect, request, url_for, jsonify, Response, make_response,  send_from_directory
+
 from www import app
 from cv2 import cv2
 import os
@@ -31,7 +32,27 @@ def upload_file():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         img = cv2.imread(upload_path)
         cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
-    return jsonify({"status": 200, "msg": "upload success","newUrl":"IMSLP00747.png"})
+        return jsonify({"status": 200, "msg": "upload success","newUrl":"IMSLP00747.png"})
+    
+    basepath = os.path.dirname(__file__) 
+    directory = os.path.join(basepath, 'static/mp3')
+    filename = 'IMSLP00747-000.mp3'
+    response = make_response(send_from_directory(directory, filename, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
+    return response 
+    """
+    def generate():
+        basepath = os.path.dirname(__file__) 
+        path = os.path.join(basepath, 'static/mp3', 'IMSLP00747-000.mp3')
+        with open(path, 'rb') as fmp3:
+            data = fmp3.read(1024)
+            while data:
+                yield data
+                data = fmp3.read(1024)
+    return Response(generate(), mimetype="audio/mpeg3")
+    """
+
+
 
 @upload.route('/results', methods=['POST', 'GET'])
 def results():

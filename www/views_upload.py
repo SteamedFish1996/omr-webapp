@@ -32,15 +32,16 @@ def upload_file():
         basepath = os.path.dirname(__file__)  # 当前文件所在路径
         img = cv2.imread(upload_path)
         cv2.imwrite(os.path.join(basepath, 'static/images', 'test.jpg'), img)
-        return jsonify({"status": 200, "msg": "upload success","newUrl":"IMSLP00747.png"})
-    
+        return jsonify({"status": 200, "msg": "upload success","newpng":"test.jpg","mp3":"IMSLP00747-000.mp3","xml":"IMSLP00747-000.xml"})
+
+    """
     basepath = os.path.dirname(__file__) 
     directory = os.path.join(basepath, 'static/mp3')
     filename = 'IMSLP00747-000.mp3'
     response = make_response(send_from_directory(directory, filename, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(filename.encode().decode('latin-1'))
     return response 
-    """
+    
     def generate():
         basepath = os.path.dirname(__file__) 
         path = os.path.join(basepath, 'static/mp3', 'IMSLP00747-000.mp3')

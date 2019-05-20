@@ -15,7 +15,6 @@
                   drag
                   :action="imgUrl"
                   :on-success="handleAvatarSuccess"
-                  :on-preview="handlePreview"
                   :on-change="handleChange"
                   :on-remove="handleRemove"
                   :file-list="fileList"
@@ -65,58 +64,40 @@
             this.iUrl = URL.createObjectURL(file.raw);
             console.log(this.iUrl);
              },
-            handleChange(file,files){
-                this.file=file;
-                this.length=files.length;
-                console.log("tao");
-                console.log(files.length);
-                this.response=file.response;
-                if(this.response){
-                  if(this.response.status=="200"){
-                    alert("上传成功");
-                        //that.$router.push('/emptyPage');
-                        that.dialogVisible=false;
+          handleChange(file,files){
+            this.file=file;
+            this.length=files.length;
+            this.response=file.response;
+            if(this.response){
+              if(this.response.status=="200"){
+                alert("上传成功");
+                that.dialogVisible=false;
               }else{
                 alert("上传失败，请检查文件格式并重新上传");
                 that.dialogVisible=false;
+              } 
               }
-                }
             },
             handleRemove(file, fileList) {
               this.length=0;
               this.response=[];
             },
-            handlePreview(file) {
-            },
             handleExceed(files, fileList) {this.$message.warning(`当前文件列表中已有文件，请重置后再上传`);},
             submitUpload() {
               console.log(this.length);
               if(this.length>0){
-              console.log("上传中...");
               this.$refs.upload.submit();
-              console.log("上传后.");
-              console.log(this.file);
               var that=this;
-              console.log(this.file);
               let formData = new FormData();
               formData.append("file", this.file);
               }
               else{
                 alert("您还未选择文件");
               }
-                //axios.post('http://127.0.0.1:5000/upload/', formData)
-                   // .then(function (response) {
-                    //    alert("上传成功");
-                        //that.$router.push('/emptyPage');
-                      //  that.dialogVisible=false;
-                    //}).
-                    //.catch(function (error) {
-                      //  alert("上传失败，请检查文件格式并重新上传");
-                        //that.dialogVisible=false;
-                    //});
             },
             analysis(){
               if(this.response){
+                console.log(this.iUrl);
                   if(this.response.status=="200"){
                     this.$router.push({path:'/ana',
                     query:{

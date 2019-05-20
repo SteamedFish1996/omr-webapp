@@ -27,7 +27,6 @@
 <script>
     import axios from 'axios';
     //import saveAs from 'file-saver';
-    //import FileSaver from 'file-save';
     var FileSaver = require('file-saver');
     var JSZip = require("jszip");
     const getFile = url => {
@@ -49,42 +48,40 @@
                 response:[],
                 src1:"",
                 src2:"",
-                mp3:"",
-                xml:"",
             }
         },
         created(){
             this.src1=this.$route.query.iUrl;
-            console.log(this.src1);
             this.src2=require("../../../../static/images/"+this.$route.query.response.newpng);
-            this.mp3=require("../../../../static/result/"+this.$route.query.response.mp3);
-            this.xml=require("../../../../static/result/"+this.$route.query.response.xml);
         },
         methods: {
           go(){
             this.$router.go(-1);
           },
-    
           down(){
-            const data = [this.mp3,this.xml] // 需要下载打包的路径, 可以是本地相对路径, 也可以是跨域的全路径
-            const zip = new JSZip()
-            const cache = {}
-            const promises = []
-            data.forEach(item => {
-                const promise = getFile(item).then(data => { // 下载文件, 并存成ArrayBuffer对象
-                    const arr_name = item.split("/")
-                    const file_name = arr_name[arr_name.length - 1] // 获取文件名
-                    zip.file(file_name, data, { binary: true }) // 逐个添加文件
-                    cache[file_name] = data
-                })
-                promises.push(promise)
-            })
-
-            Promise.all(promises).then(() => {
-                zip.generateAsync({type:"blob"}).then(content => { // 生成二进制流
-                    FileSaver.saveAs(content, "download.zip") // 利用file-saver保存文件
-                })
-            })
+            window.location.href="http://127.0.0.1:5000/upload/"
+            //router.push(location)
+            // this.$router.push(loca)("http://127.0.0.1:5000/upload/");
+             /*
+            axios.get('http://127.0.0.1:5000/upload/',{
+              responseType: 'blob'
+              }).then((res) => {
+                const blob = res.data;
+                const reader = new FileReader();
+                 reader.readAsDataURL(blob);
+                 reader.onload = (e) => {
+                   const a = document.createElement('a');
+                   a.download = res.filename;
+                  // 后端设置的文件名称在res.headers的 "content-disposition": "form-data; name=\"attachment\"; filename=\"20181211191944.zip\"",
+                   a.href = e.target.result;
+                   document.body.appendChild(a);
+                   a.click();
+                   document.body.removeChild(a);
+                   };
+                   }).catch((err) => {
+                     console.log(err.message);
+                     });
+                     */
           },
         }
     }

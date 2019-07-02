@@ -1,7 +1,10 @@
 <template>
     <div :style="back">
-      <el-card  :style ="note">
-        <span class="loginSpan">光学音乐识别系统登录</span>
+      <div class="header">
+        <span style="font-family:华文楷体">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;光学乐谱识别系统</span>
+      </div>
+      <el-card>
+        <span class="loginSpan">登录</span>
         <el-form :model="LoginData" :rules="rules">
           <el-form-item prop="username" label="用户名">
             <el-input class="loginInput" v-model="LoginData.username" placeholder="请输入用户名" clearable></el-input>
@@ -9,8 +12,14 @@
           <el-form-item prop="password" label="密码">
             <el-input class="loginInput" type="password" v-model="LoginData.password" placeholder="请输入密码" clearable></el-input>
           </el-form-item>
+          <div style="float:right">
+          <el-link type="primary">还没有账号？</el-link>
+          |
+           <el-link type="primary">忘记密码？</el-link>
+           </div>
           <el-button class="buttomButt" type="primary" @click="login()">登录</el-button>
         </el-form>
+      
       </el-card>
     </div>
 </template>
@@ -20,16 +29,11 @@ export default {
   name: 'login',
   data(){
           return{
-          note: {
-            backgroundImage: "url(" + require("../assets/balance.png") + ")",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "60px auto",
-          },
           back:{
-            backgroundImage: "url(" + require("../assets/back.png") + ")",
+            backgroundImage: "url(" + require("../assets/background2.png") + ")",
             backgroundRepeat: "no-repeat",
-            backgroundSize: "500px auto",
-            backgroundPosition:"80px 80px"
+            backgroundSize: "350px auto",
+            backgroundPosition:"220px 100px"
           },
             LoginData:{
               username:'',
@@ -41,8 +45,7 @@ export default {
                 { required:true ,message:'用户名不能为空！',trigger: 'blur' }
               ],
               password:[
-                { required:true ,message:'密码不能为空！',trigger: 'blur'},
-                { min:5 ,max:30 ,message:'长度在5到30个字符',trigger: 'blur' }
+                { required:true ,message:'密码不能为空！',trigger: 'blur'}
               ]
             },
           }
@@ -69,10 +72,17 @@ export default {
 </script>
 
 <style scoped>
+  .header{
+    height: 60px;
+    color: #409dfe;
+    line-height: 60px;
+    font-size: 25px;
+    text-align: left;
+  }
   .el-card{
     margin: 100px 800px;
     height: 360px;
-    width: 300px;
+    width: 320px;
     padding: 0px 20px;
 
   }
@@ -91,7 +101,7 @@ export default {
     height: 40px;
     width: 100%;
     font-size: 18px;
-    margin-top: 30px;
+    margin-top: 10px;
   }
   .el-radio__label{
     font-size: 25px;

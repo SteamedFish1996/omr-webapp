@@ -12,5 +12,6 @@
 ## Usage
 ``` bash
 python run.py
+
 ```
 * You will receive an instruction in your command line. Run it in another shell.

@@ -11,7 +11,7 @@ class Shell(object):
         return res.returncode, sout, serr, res.pid
 
     def cmd_result_list(self,sout):
-        return sout.decode(encoding='utf-8').split('\n')  
+        return sout.decode(encoding='utf-8',errors='ignore').split('\n')
 
 
 

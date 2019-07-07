@@ -21,5 +21,21 @@ UPLOAD_FOLDER = './data/uploads'
 #ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 ALLOWED_EXTENSIONS = set(['pdf', 'png'])
 
-PYTHON27_DIR = ''
-OMR_DIR = ''
+# moonlight
+PYTHON27_DIR = '/home/ps/anaconda3/envs/py27/bin/python'
+OMR_DIR = 'bazel-bin/moonlight/omr'
+OMR_OUTPUT_TYPE = ' --output_type=MusicXML'
+OMR_OUTPUT_DIR = '--output=$HOME/mozart.xml '
+OMR_PIC_DIR = 'corpus/56/IMSLP56442-*.png'
+
+# cnn + rnn
+"""
+# From [GIT_ROOT]/MusicObjectDetection
+python inference_over_directory.py \
+    --inference_graph ${frozen_inference_graph.pb} \ 
+    --label_map mapping.txt \
+    --input_directory ${DIRECTORY_TO_IMAGES} \
+    --output_directory ${OUTPUT_DIRECTORY}
+    """
+PYTHON37_DIR = '/home/ps/anaconda3/envs/tensorflow/bin/python'
+
